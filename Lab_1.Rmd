@@ -1,0 +1,137 @@
+1.) CREACION DE VECTORES Y MATRICES
+
+1.1)
+```{r}
+S1 <- c(50.4,62.3,92.1,77.6,TRUE)
+S2 <- c(41.7, 87.9, 75.3, 72.4, FALSE)
+S3 <- c(30.3, 67.8, 69.3, 71.2, FALSE)
+S4 <- c(65.4, 85.1, 92.3, 96.8, TRUE)
+S5 <- c(70.4,88.2,95.2,90.7,TRUE)
+```
+
+1.2)
+```{r}
+students_vector <- c(S1, S2, S3, S4, S5)
+students_vector
+
+
+```
+1.3)
+```{r}
+students_matrix <- matrix(students_vector, byrow =TRUE,ncol=5)
+students_matrix
+```
+
+2) NOMRADO DE UNA MATRIZ
+
+2.1)
+```{r}
+name_students <- c("Lily Brown","Davis Moore","Susan Taylor","Mike Jones","Legal_age")
+name_courses_legal_age <- c("TIC", "Accounting", "Psychology", "Ethics","legal_age")
+
+name_students
+name_courses_legal_age
+```
+2.2) 
+```{r}
+dimnames(students_matrix) <- list(name_students, name_courses_legal_age)
+students_matrix
+
+```
+
+3.) rowSums, cbind
+3.1)
+
+```{r}
+students_matrix2 <- students_matrix[,-5]
+total_grade_student <- rowSums(students_matrix2)
+students_matrix2
+total_grade_student
+
+```
+3.2) 
+```{r}
+result_students <- cbind(students_matrix2, total_grade_student)
+result_students
+```
+4.) SELECCIONANDO ELEMENTOS DE UNA MATRIZ
+4.1)
+
+```{r}
+selected_elements <- result_students[,-1]
+selected_elements
+selected_elements <- selected_elements[,-2]
+selected_elements
+selected_elements <- selected_elements[, -3]
+selected_elements
+
+selected_elements <- selected_elements[-2,]
+selected_elements <- selected_elements[-3,]
+
+selected_elements
+```
+
+5.) DATA FRAMES
+5.1) 
+
+```{r}
+students_grades_df <- data.frame(result_students)
+students_grades_df
+```
+
+5.2)
+```{r}
+subset(students_grades_df)
+```
+
+6.) FUNCIONES, CONDICIONES Y BUCLES
+6.1)
+```{r}
+for (i in 1:nrow(result_students)){
+  for(j in 1:ncol(result_students)){
+    if(i <= 45){
+      print ("Student at risk")
+    }
+    if(45 < i ){
+      print ("Student may be approved")
+    }
+    if(i < 61){
+      print ("Student may be approved")
+    }
+    else{
+      print("student approved")
+    }
+      
+  }
+}
+```
+7.) DATA FRAMES Y LAPPLY
+7.1)
+```{r}
+index_education <- function(grade){
+  (1 + (grade/100))/2
+}
+                
+
+```
+7.2) 
+
+```{r}
+all_students_grade <- students_grades_df[, -5]
+all_students_grade
+```
+
+7.3)
+
+```{r}
+lapply(all_students_grade,index_education)
+```
+8.) MATH UTILITIES
+8.1)
+
+```{r}
+score_mean <- lapply(students_grades_df, FUN=mean)
+score_mean
+
+```
+
